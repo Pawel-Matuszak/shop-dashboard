@@ -16,3 +16,8 @@ export interface Cart {
   userId: number;
   discountedTotal: number;
 }
+
+export interface PostCartData {
+  userId: number;
+  products: { id: number; quantity: number }[];
+}

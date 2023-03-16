@@ -6,14 +6,12 @@ import { TiShoppingCart } from "react-icons/ti";
 import CartListItem from "./CartListItem";
 import CartList from "./CartList";
 import ErrorMessage from "../../components/ErrorMessage";
+import useCartList from "../../hooks/useCartList";
 
 type Props = {};
 
 const Home = (props: Props) => {
-  const cartList = useQuery<any, Error>({
-    queryKey: ["cartList"],
-    queryFn: async () => await axios.get("https://dummyjson.com/carts"),
-  });
+  const cartList = useCartList();
 
   if (cartList.isLoading) return <div>Loading...</div>;
   if (cartList.isError) return <ErrorMessage>{cartList.error.message}</ErrorMessage>;
