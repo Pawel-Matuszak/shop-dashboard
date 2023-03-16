@@ -17,3 +17,9 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+@layer components {
+  .cart-list {
+    @apply max-sm:grid-cols-cartListSm grid w-full grid-cols-cartList items-center justify-between border-b border-yellow-300 border-opacity-50 p-4 max-md:flex-col;
+  }
+}

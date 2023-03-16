@@ -19,12 +19,12 @@ const Home = (props: Props) => {
   if (cartList.isError) return <ErrorMessage>{cartList.error.message}</ErrorMessage>;
 
   return (
-    <main className="mx-auto my-4 w-4/5">
+    <main className="mx-auto my-4 w-4/5 max-sm:w-screen">
       <section className="flex items-center gap-3">
         <TiShoppingCart className="text-4xl" />
         <p className="text-xl font-bold">Carts</p>
       </section>
-      <section className="mx-auto my-2 w-11/12 border-t-2 border-gray-300"></section>
+      <section className="mx-auto my-2 w-11/12 border-t-2 border-gray-300 "></section>
       <section>
         {cartList.isSuccess && (
           <CartList cartArray={cartList.data?.data.carts}></CartList>
