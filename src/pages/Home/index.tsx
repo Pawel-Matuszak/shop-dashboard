@@ -17,7 +17,6 @@ type Props = {};
 
 const Home = (props: Props) => {
   const cartList = useCartList();
-  const addCart = useAddCartMutation(() => cartList.refetch());
   const removeCart = useRemoveCartMutation(() => cartList.refetch());
 
   if (cartList.isLoading) return <div>Loading...</div>;
@@ -40,10 +39,7 @@ const Home = (props: Props) => {
             removeCart={removeCart}
           ></CartList>
         )}
-        {addCart.isSuccess && <Snackbar message="Cart added!" isSuccess />}
         {removeCart.isSuccess && <Snackbar message="Cart removed!" isSuccess />}
-        {addCart.isError ||
-          (removeCart.isError && <Snackbar message="Error" isSuccess={false} />)}
       </section>
     </main>
   );

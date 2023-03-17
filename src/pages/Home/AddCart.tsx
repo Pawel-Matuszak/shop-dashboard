@@ -11,7 +11,6 @@ const AddCart = ({}: Props) => {
   const navigate = useNavigate();
 
   const addHandler = () => {
-    // addCart.mutate({ userId: 1, products: [{ id: 1, quantity: 2 }] });
     navigate("/add-cart");
   };
 

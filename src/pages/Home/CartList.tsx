@@ -14,7 +14,7 @@ const CartList = ({ cartArray, removeCart }: Props) => {
     <div className="mx-auto my-4 flex max-w-screen-lg flex-col ">
       <CartListHeader />
       {cartArray.map((cart: Cart) => (
-        <CartListItem cart={cart} removeCart={removeCart} />
+        <CartListItem cart={cart} removeCart={removeCart} key={cart.id} />
       ))}
     </div>
   );
