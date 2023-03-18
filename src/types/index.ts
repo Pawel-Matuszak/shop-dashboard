@@ -37,3 +37,7 @@ export interface PostCartData {
     quantity: number;
   }[];
 }
+
+export interface SelectedProducts {
+  [key: number]: number;
+}

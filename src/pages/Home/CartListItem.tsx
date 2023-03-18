@@ -5,10 +5,11 @@ import Button from "../../components/Button";
 import useRemoveCartMutation from "../../hooks/useRemoveCartMutation";
 import Snackbar from "../../components/Snackbar";
 import { UseMutationResult } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
 
 type Props = {
   cart: Cart;
-  removeCart: UseMutationResult<void, unknown, number, unknown>;
+  removeCart: UseMutationResult<AxiosResponse<any, any>, unknown, number, unknown>;
 };
 
 const CartListItem = ({ cart, removeCart }: Props) => {

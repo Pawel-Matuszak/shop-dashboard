@@ -4,9 +4,8 @@ import { PostCartData } from "../types";
 
 export default (onSuccessHandler?: () => void) =>
   useMutation({
-    mutationFn: async (cart: PostCartData) => {
-      await axios.post("https://dummyjson.com/carts/add", cart);
-    },
+    mutationFn: async (cart: PostCartData) =>
+      await axios.post("https://dummyjson.com/carts/add", cart),
     onSuccess() {
       if (onSuccessHandler) onSuccessHandler();
     },

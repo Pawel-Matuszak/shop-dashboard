@@ -2,48 +2,42 @@ import React, { useState, useEffect } from "react";
 import Snackbar from "../../components/Snackbar";
 import useAddCartMutation from "../../hooks/useAddCartMutation";
 import useProducts from "../../hooks/useProducts";
-import { Product } from "../../types";
+import { Product, SelectedProducts } from "../../types";
+import ProductListItem from "./ProductListItem";
 
 type Props = {};
-
-interface SelectedProducts {
-  [key: number]: number;
-}
 
 const AddCartForm = (props: Props) => {
   const products = useProducts();
   const addCart = useAddCartMutation();
-  const [cart, setCart] = useState<SelectedProducts>({});
+  const [selectedProducts, setSelectedProducts] = useState<SelectedProducts>({});
+  const [message, setMessage] = useState("");
 
-  const handleIncreaseQuantity = (productId: number) => {
-    setCart({
-      ...cart,
-      [productId]: (cart[productId] || 0) + 1,
-    });
-  };
-
-  const handleDecreaseQuantity = (productId: number) => {
-    setCart({
-      ...cart,
-      [productId]: cart[productId] > 0 ? (cart[productId] || 0) - 1 : 0,
+  const handleChangeQuantity = (productId: number, value: number) => {
+    const qty = (selectedProducts[productId] || 0) + value;
+    setSelectedProducts({
+      ...selectedProducts,
+      [productId]: qty > 0 ? qty : 0,
     });
   };
 
   useEffect(() => {
-    console.log(cart);
-  }, [cart]);
+    console.log(selectedProducts);
+  }, [selectedProducts]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submit");
-    const cartKeys = Object.keys(cart);
-    const products: any = cartKeys.map((key) => {
-      return {
-        id: key,
-        quantity: cart[parseInt(key)],
-      };
-    });
-    console.log(products);
+    setMessage("");
+    const cartKeys = Object.keys(selectedProducts);
+    const products: any = cartKeys
+      .map((key) => {
+        return {
+          id: key,
+          quantity: selectedProducts[parseInt(key)],
+        };
+      })
+      .filter((product: any) => product.quantity > 0);
+    if (products.length === 0) return setMessage("Select at least one product");
     addCart.mutate({ userId: 1, products });
   };
 
@@ -52,29 +46,25 @@ const AddCartForm = (props: Props) => {
 
   return (
     <div>
-      <h2>Wybierz produkty</h2>
-      <form onSubmit={handleSubmit}>
+      <h2 className="p-3 text-2xl font-bold">Wybierz produkty</h2>
+      <form onSubmit={handleSubmit} className="m-auto w-3/4">
         {products.data?.data.products.map((product: Product) => (
-          <div key={product.id}>
-            <h3>{product.title}</h3>
-            <p>{product.description}</p>
-            <p>Price: ${product.price}</p>
-            <p>
-              Quantity:{" "}
-              <button type="button" onClick={() => handleDecreaseQuantity(product.id)}>
-                -
-              </button>
-              {cart[product.id] || 0}
-              <button type="button" onClick={() => handleIncreaseQuantity(product.id)}>
-                +
-              </button>
-            </p>
-          </div>
+          <ProductListItem
+            product={product}
+            handleChangeQuantity={handleChangeQuantity}
+            selectedProducts={selectedProducts}
+          />
         ))}
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          className="m-6 rounded border border-white px-3 py-1 font-bold transition-colors hover:bg-white hover:text-gray-600"
+        >
+          Submit
+        </button>
+        {addCart.isSuccess && <Snackbar message="Cart added!" isSuccess />}
+        {addCart.isError && <Snackbar message="Error" isSuccess={false} />}
+        {message && <Snackbar message={message} isSuccess={false} />}
       </form>
-      {addCart.isSuccess && <Snackbar message="Cart added!" isSuccess />}
-      {addCart.isError && <Snackbar message="Error" isSuccess={false} />}
     </div>
   );
 };
