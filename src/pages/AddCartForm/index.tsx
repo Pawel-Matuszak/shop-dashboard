@@ -22,10 +22,6 @@ const AddCartForm = (props: Props) => {
     });
   };
 
-  useEffect(() => {
-    console.log(selectedProducts);
-  }, [selectedProducts]);
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMessage("");

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useCartDetails from "../../hooks/useCartDetails";
 import {
   Chart as ChartJS,
@@ -12,6 +12,8 @@ import {
   LineElement,
 } from "chart.js";
 import Loading from "../../components/Loading";
+import Navbar from "../../components/Navbar";
+import { IoArrowBackOutline } from "react-icons/io5";
 
 ChartJS.register(CategoryScale, LinearScale, Tooltip, Legend, PointElement, LineElement);
 
@@ -21,14 +23,10 @@ const Details = (props: Props) => {
   const { id } = useParams();
   const details = useCartDetails(id!);
   const [chartData, setChartData] = useState<any>(null);
+  const navigator = useNavigate();
 
   useEffect(() => {
-    details.refetch();
-  }, []);
-
-  useEffect(() => {
-    console.log(details.data);
-    if (details.isSuccess && details.data?.data.products)
+    if (details.isSuccess)
       setChartData({
         labels: details.data?.data.products.map((product) => product.title),
         datasets: [
@@ -77,10 +75,18 @@ const Details = (props: Props) => {
   if (details.isLoading) return <Loading />;
 
   return (
-    <div className="p-4">
+    <div className="mx-auto my-4 w-4/5 max-sm:w-screen">
+      <Navbar
+        leadingComponent={
+          <IoArrowBackOutline
+            className="cursor-pointer text-3xl"
+            onClick={() => navigator("/")}
+          />
+        }
+        title="Cart Details"
+      />
       <section>
-        <h2 className="text-xl font-bold ">Cart Details</h2>
-        <div className="flex flex-col px-3 ">
+        <div className="flex flex-col px-3">
           <span>
             Cart ID: <span className=" font-bold ">{details.data.data.id || ""}</span>
           </span>
@@ -97,8 +103,7 @@ const Details = (props: Props) => {
         </div>
       </section>
       <section>
-        <div className="m-auto w-screen">
-          {console.log(chartData)}
+        <div className="m-auto w-4/5 max-w-4xl max-sm:w-screen">
           {chartData && <Line data={chartData} options={options} />}
         </div>
       </section>

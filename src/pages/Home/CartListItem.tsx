@@ -7,6 +7,7 @@ import Snackbar from "../../components/Snackbar";
 import { UseMutationResult } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { Link } from "react-router-dom";
+import { IoArrowForwardOutline } from "react-icons/io5";
 
 type Props = {
   cart: Cart;
@@ -33,14 +34,16 @@ const CartListItem = ({ cart, removeCart }: Props) => {
           </div>
         ))}
       </div>
-      <Button action={handleRemoveCart}>
-        <BsTrash className="text-2xl text-red-600" />
-      </Button>
-      <Button action={() => {}}>
-        <Link to={`/details/${cart.id}`}>
-          <BsTrash className="text-2xl text-red-100" />
-        </Link>
-      </Button>
+      <div className="flex gap-4">
+        <Button action={handleRemoveCart}>
+          <BsTrash className="text-2xl text-red-600" />
+        </Button>
+        <Button action={() => {}}>
+          <Link to={`/details/${cart.id}`}>
+            <IoArrowForwardOutline className="text-2xl text-red-100" />
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 };
