@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { IoArrowBackOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
+import Navbar from "../../components/Navbar";
 import Snackbar from "../../components/Snackbar";
 import useAddCartMutation from "../../hooks/useAddCartMutation";
 import useProducts from "../../hooks/useProducts";
@@ -9,6 +12,7 @@ import ProductListItem from "./ProductListItem";
 type Props = {};
 
 const AddCartForm = (props: Props) => {
+  const navigator = useNavigate();
   const products = useProducts();
   const addCart = useAddCartMutation();
   const [selectedProducts, setSelectedProducts] = useState<SelectedProducts>({});
@@ -40,10 +44,17 @@ const AddCartForm = (props: Props) => {
 
   if (products.isError) return <div>Error: {products.error.message}</div>;
   if (products.isLoading) return <Loading />;
-
   return (
-    <div>
-      <h2 className="p-3 text-2xl font-bold">Wybierz produkty</h2>
+    <div className="mx-auto my-4 w-4/5 max-sm:w-screen">
+      <Navbar
+        leadingComponent={
+          <IoArrowBackOutline
+            className="cursor-pointer text-3xl"
+            onClick={() => navigator("/")}
+          />
+        }
+        title="Select Products"
+      />
       <form onSubmit={handleSubmit} className="m-auto w-3/4">
         {products.data?.data.products.map((product: Product) => (
           <ProductListItem
