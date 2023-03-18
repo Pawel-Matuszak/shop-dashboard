@@ -4,7 +4,7 @@ type Props = {};
 
 const CartListHeader = (props: Props) => {
   return (
-    <div className="cart-list border-opacity-80 ">
+    <div className="cart-list">
       <div>Total</div>
       <div>Discounted Total</div>
       <div>Total Quantity</div>

@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Details from "./pages/Details";
 import AddCartForm from "./pages/AddCartForm";
+import useCartList from "./hooks/useCartList";
+import axios from "axios";
 
 function App() {
   const queryClient = new QueryClient();
@@ -15,9 +17,9 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
             <Route path="/add-cart" element={<AddCartForm />} />
             <Route path="/details/:id" element={<Details />} />
+            <Route path="/*" element={<Home />} />
           </Routes>
         </BrowserRouter>
       </div>

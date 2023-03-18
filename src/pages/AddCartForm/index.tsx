@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Loading from "../../components/Loading";
 import Snackbar from "../../components/Snackbar";
 import useAddCartMutation from "../../hooks/useAddCartMutation";
 import useProducts from "../../hooks/useProducts";
@@ -42,7 +43,7 @@ const AddCartForm = (props: Props) => {
   };
 
   if (products.isError) return <div>Error: {products.error.message}</div>;
-  if (products.isLoading) return <div>Loading...</div>;
+  if (products.isLoading) return <Loading />;
 
   return (
     <div>

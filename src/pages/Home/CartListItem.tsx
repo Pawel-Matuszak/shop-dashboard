@@ -6,6 +6,7 @@ import useRemoveCartMutation from "../../hooks/useRemoveCartMutation";
 import Snackbar from "../../components/Snackbar";
 import { UseMutationResult } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
+import { Link } from "react-router-dom";
 
 type Props = {
   cart: Cart;
@@ -34,6 +35,11 @@ const CartListItem = ({ cart, removeCart }: Props) => {
       </div>
       <Button action={handleRemoveCart}>
         <BsTrash className="text-2xl text-red-600" />
+      </Button>
+      <Button action={() => {}}>
+        <Link to={`/details/${cart.id}`}>
+          <BsTrash className="text-2xl text-red-100" />
+        </Link>
       </Button>
     </div>
   );

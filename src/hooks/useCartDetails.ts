@@ -4,6 +4,6 @@ import { Cart } from "../types";
 
 export default (id: string) =>
   useQuery<AxiosResponse<Cart, any>, Error>({
-    queryKey: ["cartList"],
+    queryKey: ["cartDetails", id],
     queryFn: async () => await axios.get(`https://dummyjson.com/carts/${id}`),
   });

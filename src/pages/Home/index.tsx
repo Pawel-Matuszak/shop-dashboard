@@ -12,6 +12,7 @@ import Snackbar from "../../components/Snackbar";
 import useAddCartMutation from "../../hooks/useAddCartMutation";
 import useRemoveCartMutation from "../../hooks/useRemoveCartMutation";
 import AddCart from "./AddCart";
+import Loading from "../../components/Loading";
 
 type Props = {};
 
@@ -19,7 +20,11 @@ const Home = (props: Props) => {
   const cartList = useCartList();
   const removeCart = useRemoveCartMutation(() => cartList.refetch());
 
-  if (cartList.isLoading) return <div>Loading...</div>;
+  useEffect(() => {
+    cartList.refetch();
+  }, []);
+
+  if (cartList.isLoading) return <Loading />;
   if (cartList.isError) return <ErrorMessage>{cartList.error.message}</ErrorMessage>;
 
   return (
