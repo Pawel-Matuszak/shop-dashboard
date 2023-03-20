@@ -17,9 +17,9 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/add-cart" element={<AddCartForm />} />
-            <Route path="/details/:id" element={<Details />} />
-            <Route path="/*" element={<Home />} />
+            <Route path="/shop-dashboard/add-cart" element={<AddCartForm />} />
+            <Route path="/shop-dashboard/details/:id" element={<Details />} />
+            <Route path="/shop-dashboard/*" element={<Home />} />
           </Routes>
         </BrowserRouter>
       </div>
