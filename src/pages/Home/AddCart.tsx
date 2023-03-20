@@ -11,7 +11,7 @@ const AddCart = ({}: Props) => {
   const navigate = useNavigate();
 
   const addHandler = () => {
-    navigate("/add-cart");
+    navigate("/shop-dashboard/add-cart");
   };
 
   return (

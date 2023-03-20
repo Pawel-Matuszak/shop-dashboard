@@ -23,7 +23,7 @@ const Details = (props: Props) => {
   const { id } = useParams();
   const details = useCartDetails(id!);
   const [chartData, setChartData] = useState<any>(null);
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (details.isSuccess)
@@ -80,7 +80,7 @@ const Details = (props: Props) => {
         leadingComponent={
           <IoArrowBackOutline
             className="cursor-pointer text-3xl"
-            onClick={() => navigator("/")}
+            onClick={() => navigate("/shop-dashboard/")}
           />
         }
         title="Cart Details"

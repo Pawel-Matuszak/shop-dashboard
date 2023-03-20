@@ -39,7 +39,7 @@ const CartListItem = ({ cart, removeCart }: Props) => {
           <BsTrash className="text-2xl text-red-600" />
         </Button>
         <Button action={() => {}}>
-          <Link to={`/details/${cart.id}`}>
+          <Link to={`details/${cart.id}`}>
             <IoArrowForwardOutline className="text-2xl text-red-100" />
           </Link>
         </Button>

@@ -12,7 +12,7 @@ import ProductListItem from "./ProductListItem";
 type Props = {};
 
 const AddCartForm = (props: Props) => {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
   const products = useProducts();
   const addCart = useAddCartMutation();
   const [selectedProducts, setSelectedProducts] = useState<SelectedProducts>({});
@@ -50,7 +50,7 @@ const AddCartForm = (props: Props) => {
         leadingComponent={
           <IoArrowBackOutline
             className="cursor-pointer text-3xl"
-            onClick={() => navigator("/")}
+            onClick={() => navigate("/shop-dashboard/")}
           />
         }
         title="Select Products"
